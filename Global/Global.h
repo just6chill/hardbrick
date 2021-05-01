@@ -5,8 +5,12 @@
 #ifndef FIRST_GLOBAL_H
 #define FIRST_GLOBAL_H
 
+#include <vector>
 
-extern int Table[100];
-extern int TableCounter;
+//the vector to store the types of the chars. (parallel to Code)
+extern std::vector<int> Table[];
+
+//the vector to store the chars of the code (parallel to Table)
+extern std::vector<char> Code[100];
 
 #endif //FIRST_GLOBAL_H
