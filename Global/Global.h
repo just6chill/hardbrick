@@ -11,6 +11,6 @@
 extern std::vector<int> Table[];
 
 //the vector to store the chars of the code (parallel to Table)
-extern std::vector<char> Code[100];
+extern std::vector<char> Code[];
 
 #endif //FIRST_GLOBAL_H
