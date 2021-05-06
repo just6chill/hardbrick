@@ -11,37 +11,96 @@ namespace Parser {
     int LexicalAnalysis::Tokenize(std::vector<char> &Code, std::vector<int> &Table) {
 
         std::string Temp;
-        bool flag = true;
         int tokencounter = 0;
         int counter = 0;
-        int code;
 
-        for (const char &c : Code){
-            repeat:
-            if (flag){
-                code = Table[counter];
-                Temp.clear();
-            }
-            flag = false;
-            if ((code == Table[counter]) && (code == 4)) {
-                Temp.push_back(c);
-            } else {
+        for (const char &c : Code) {
+
+            if ((Table[counter] != 4) && (Table[counter] != 5)) {
                 std::vector<char> increase;
                 Tokens.push_back(increase);
-                Tokens[tokencounter].clear();
                 for (char Temp_C : Temp) {
                     Tokens[tokencounter].push_back(Temp_C);
                 }
                 tokencounter++;
-                flag = true;
-                goto repeat;
+                Temp.clear();
+                Tokens.push_back(increase);
+                Tokens[tokencounter].push_back(c);
+                tokencounter++;
+            } else {
+                Temp.push_back(c);
             }
             counter++;
         }
+
         return 0;
     }
 
+    int LexicalAnalysis::SpaceHandle() {
+
+       for(std::size_t i = 0; i < Tokens.size(); ++i) {
+
+           auto it = Tokens.begin() + i;
+           auto index = it->begin();
+           if (Tokens[i].size() == 0) {
+               Tokens.erase(it);
+           }
+       }
+
+       bool flag = false;
+
+       for(std::size_t i = 0; i < Tokens.size(); ++i) {
+
+           auto it = Tokens.begin() + i;
+           auto index = it->begin() + 0;
+           if (*index == '\"') {
+               flag = !flag;
+           }
+           if (flag == false) {
+               if (*index == ' ') {
+                   Tokens.erase(it);
+                   i--;
+               }
+           }
+       }
+
+       return 0;
+    }
+
     int LexicalAnalysis::Assign() {
+
+        std::string operators = "+-*/=";
+        std::string symbols = "#'\"$%&!/\\:.,;";
+        std::string brackets = "(){}[]";
+
+        for (auto &row : Tokens) {
+
+            for (auto o : operators) {
+                if (row[0] == o) {
+                    Types.push_back(0);
+                }
+            }
+            for (auto s : symbols) {
+                if (row[0] == s) {
+                    Types.push_back(1);
+                }
+            }
+            for (auto b : brackets) {
+                if (row[0] == b) {
+                    Types.push_back(2);
+                }
+            }
+
+            if (row[0] == ' '){
+                Types.push_back(3);
+            } else if (std::isdigit(row[0])) {
+                Types.push_back(4);
+            } else if (std::isalpha(row[0])) {
+                Types.push_back(5);
+            }
+        }
+
+
         return 0;
     }
 }

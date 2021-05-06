@@ -5,7 +5,7 @@
 #include "LexicalAnalysis.h"
 #include <string>
 
-enum {zero, op, symbol, bracket, letter, digit};
+enum {zero, op, symbol, bracket, letter, digit, empty};
 
 namespace Parser {
 
@@ -64,7 +64,7 @@ namespace Parser {
             }
 
             if (*c == ' '){
-                Table.push_back(symbol);
+                Table.push_back(empty);
             }
             if (std::isalpha(*c)) {
                 Table.push_back(letter);

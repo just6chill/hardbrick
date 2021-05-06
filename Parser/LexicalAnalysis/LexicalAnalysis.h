@@ -40,6 +40,8 @@ namespace Parser {
         int PreTokenize(std::vector<char> &Code, std::vector<int> &Table);
         //tokenize types
         int Tokenize(std::vector<char> &Code, std::vector<int> &Table);
+        //Handle Space and empty vectors
+        int SpaceHandle();
         //assign types
         int Assign();
 

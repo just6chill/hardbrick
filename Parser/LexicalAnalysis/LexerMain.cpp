@@ -22,6 +22,7 @@ namespace Parser {
         ReadFile(Code);
         PreTokenize(Code, Table);
         Tokenize(Code, Table);
+        SpaceHandle();
         Assign();
 
         return 0;
