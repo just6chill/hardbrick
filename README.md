@@ -8,7 +8,7 @@ whats working:
 * the Lexical Tokenizing
 
 what i am currently working on:
- * the lexer
+ * the syntax analyzer
 
 --- 
 
