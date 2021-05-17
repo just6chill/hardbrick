@@ -1,34 +1,15 @@
-#include "Parser/LexicalAnalysis/LexicalAnalysis.h"
-#include <iostream>
+#include "Analysis/LexicalAnalysis/LexicalAnalysis.h"
+#include "Analysis/SyntaxAnalysis/SyntaxAnalysis.h"
 
 int main(int argc, char *argv[]) {
 
-    Parser::LexicalAnalysis Lexer(argv[1]);
+    Analysis::LexicalAnalysis Lexer(argv[1]);
     Lexer.Run();
     auto [Tokens, Types] = Lexer.GetState();
 
-
-    //print the thing out yeah
-    int counter = 0;
-    for (auto &row : Tokens) {
-        std::cout << std::endl;
-
-        switch (Types[counter]) {
-            case 0: std::cout << "operator  "; break;
-            case 1: std::cout << "symbol    "; break;
-            case 2: std::cout << "bracket   "; break;
-            case 3: std::cout << "space     "; break;
-            case 4: std::cout << "number    "; break;
-            case 5: std::cout << "identifier"; break;
-            case 10: std::cout << "string    "; break;
-            case 20: std::cout << "keyword   "; break;
-        }
-        std::cout << ": ";
-        counter++;
-        for (auto &col : row) {
-            std::cout << col;
-        }
-    }
+    Analysis::SyntaxAnalysis Syntax(Tokens, Types);
+    Syntax.Run();
+    std::tie(Tokens, Types) = Syntax.GetState();
 
     return 0;
 }

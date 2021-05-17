@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
-project(first)
+project(hardbrick)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(first main.cpp Parser/LexicalAnalysis/Scan.cpp Parser/LexicalAnalysis/LexicalAnalysis.h Global/Global.h Parser/LexicalAnalysis/Lexer.cpp Parser/LexicalAnalysis/LexerMain.cpp)
+add_executable(hardbrick main.cpp Analysis/LexicalAnalysis/Scan.cpp Analysis/LexicalAnalysis/LexicalAnalysis.h Analysis/LexicalAnalysis/Lexer.cpp Analysis/LexicalAnalysis/LexerMain.cpp Analysis/SyntaxAnalysis/SyntaxAnalysis.h Analysis/SyntaxAnalysis/SyntaxMain.cpp)
