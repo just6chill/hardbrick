@@ -16,7 +16,7 @@ namespace Parser {
 
         for (const char &c : Code) {
 
-            if ((Table[counter] != 4) && (Table[counter] != 5)) {
+            if ((Table[counter] != 4) && (Table[counter] != 5) && (Table[counter] != 10)) {
                 std::vector<char> increase;
                 Tokens.push_back(increase);
                 for (char Temp_C : Temp) {
@@ -32,7 +32,6 @@ namespace Parser {
             }
             counter++;
         }
-
         return 0;
     }
 
@@ -53,15 +52,13 @@ namespace Parser {
 
            auto it = Tokens.begin() + i;
            auto index = it->begin() + 0;
-           if (*index == '\"') {
-               flag = !flag;
-           }
-           if (flag == false) {
+
+
                if (*index == ' ') {
                    Tokens.erase(it);
                    i--;
                }
-           }
+
        }
 
        return 0;
@@ -70,11 +67,14 @@ namespace Parser {
     int LexicalAnalysis::Assign() {
 
         std::string operators = "+-*/=";
-        std::string symbols = "#'\"$%&!/\\:.,;";
+        std::string symbols = "#'$%&!/\\:.,;";
         std::string brackets = "(){}[]";
 
         for (auto &row : Tokens) {
 
+            if (row[0] == '\"') {
+                Types.push_back(10);
+            }
             for (auto o : operators) {
                 if (row[0] == o) {
                     Types.push_back(0);
@@ -100,6 +100,24 @@ namespace Parser {
             }
         }
 
+        std::vector<std::string> Keywords = {"for", "foreach", "while", "bit", "num", "great", "char", "string", "return"};
+        int counter = 0;
+        for(const auto& line : Tokens){
+            std::string Temp;
+
+            for (auto c : line) {
+                Temp.push_back(c);
+            }
+
+            for (const auto& keyword : Keywords) {
+                if (keyword == Temp) {
+                    Types[counter] = 20;
+                    break;
+                }
+            }
+
+            counter++;
+        }
 
         return 0;
     }

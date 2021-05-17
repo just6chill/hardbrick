@@ -5,7 +5,7 @@
 #include "LexicalAnalysis.h"
 #include <string>
 
-enum {zero, op, symbol, bracket, letter, digit, empty};
+enum {zero, op, symbol, bracket, letter, digit, empty, quotes};
 
 namespace Parser {
 
@@ -41,8 +41,9 @@ namespace Parser {
     int LexicalAnalysis::PreTokenize(std::vector<char> &Code, std::vector<int> &Table) {
 
         std::string operators = "+-*/=";
-        std::string symbols = "#'\"$%&!/\\:.,;";
+        std::string symbols = "#'$%&!/\\:.,;";
         std::string brackets = "(){}[]";
+        std::string quote = "\"";
 
         //check which type the char of the actual index is and
         //assign its type to the Table vector at a parallel index
@@ -50,6 +51,11 @@ namespace Parser {
             for (auto o : operators) {
                 if (*c == o) {
                     Table.push_back(op);
+                }
+            }
+            for (auto q : quote) {
+                if (*c == q) {
+                    Table.push_back(quotes);
                 }
             }
             for (auto s : symbols) {
@@ -71,6 +77,19 @@ namespace Parser {
             } else if (std::isdigit(*c)) {
                 Table.push_back(digit);
             }
+        }
+
+        int counter = 0;
+        bool flag = false;
+        for (int i : Table) {
+
+            if (i == quotes) {
+                flag = !flag;
+                Table[counter] = 10;
+            } else if (flag == true) {
+                Table[counter] = 10;
+            }
+            counter++;
         }
         return 0;
     }

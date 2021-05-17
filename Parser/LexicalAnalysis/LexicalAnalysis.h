@@ -54,6 +54,7 @@ namespace Parser {
 
         //final tokens
         std::vector<std::vector<char>> Tokens;
+        std::vector<std::vector<char>> ResultTokens;
         std::vector<int> Types;
 
     };

@@ -20,6 +20,8 @@ int main(int argc, char *argv[]) {
             case 3: std::cout << "space     "; break;
             case 4: std::cout << "number    "; break;
             case 5: std::cout << "identifier"; break;
+            case 10: std::cout << "string    "; break;
+            case 20: std::cout << "keyword   "; break;
         }
         std::cout << ": ";
         counter++;

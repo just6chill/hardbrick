@@ -4,6 +4,7 @@
 #include <string>
 #include <tuple>
 #include <vector>
+#include <iostream>
 #include "LexicalAnalysis.h"
 
 namespace Parser {
